@@ -1,0 +1,64 @@
+<template name='identity'>
+  <div id='identityForm'>
+    {{> identityForm}}
+  </div>
+</template>
+
+<template name='identityForm'>
+  {{#with person}}
+  <form class='form-horizontal' role='identity-form'>
+    <div class="form-group">
+      <label for="location"
+          class="col-sm-2 control-label">Location</label>
+      <div class="row-fluid">
+        <span id="countriesSelect" class="col-sm-3">
+          {{> countriesSelect}}
+        </span>
+        <span id="statesSelect" class="col-sm-3">
+          {{> statesSelect}}
+        </span>
+        <span id="citiesSelect" class="col-sm-3">
+          {{> citiesSelect}}
+        </span>
+      </div>
+    </div>
+    {{> updateButtons}}
+  </form>
+  {{/with}}
+</template>
+
+<template name="countriesSelect">
+  <select id="countries" class="selectpicker changeitem">
+    {{> countriesSelectOptions}}
+  </select>
+</template>
+
+<template name="countriesSelectOptions">
+  {{#each options}}
+    <option>{{this}}</option>
+  {{/each}}
+</template>
+
+<template name="statesSelect">
+  <select id="states" class="selectpicker changeitem">
+    {{> statesSelectOptions}}
+  </select>
+</template>
+
+<template name="statesSelectOptions">
+  {{#each options}}
+    <option>{{this}}</option>
+  {{/each}}
+</template>
+
+<template name="citiesSelect">
+  <select id="cities" class="selectpicker changeitem">
+    {{> citiesSelectOptions}}
+  </select>
+</template>
+
+<template name="citiesSelectOptions">
+  {{#each options}}
+    <option>{{this}}</option>
+  {{/each}}
+</template>
