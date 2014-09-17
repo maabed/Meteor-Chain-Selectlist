@@ -5,11 +5,11 @@
 
 standard-app-packages
 insecure
-iron:router
 aldeed:autoform
 mizzao:bootstrap-3
 coffeescript
 mrt:bootstrap-select
 veto44:bootstrap-select
 accounts-base
+iron:router
 

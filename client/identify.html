@@ -1,4 +1,4 @@
-<template name='identity'>
+<template name='home'>
 <nav class="navbar navbar-default" role="navigation">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -20,47 +20,31 @@
 </template>
 
 <template name='identityForm'>
-  {{#with person}}
   <form class='form-horizontal' role='identity-form'>
+    <label for="location" class="col-sm-3 text-left">Location</label>
     <div class="form-group">
-      <label for="name"
-         class="col-sm-2 control-label">Name</label>
-      <div class="col-sm-2">
-        <input type="text"
-            class="form-control formitem" id="firstName"
-            placeholder="first" value="{{firstName}}">
-      </div>
-      <div class="col-sm-4">
-        <input type="text"
-            class="form-control formitem" id="lastName"
-            placeholder="last" value="{{lastName}}">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="location"
-          class="col-sm-2 control-label">Location</label>
-      <div class="row-fluid">
-        <span id="countriesSelect" class="col-sm-3">
+      <div class="container" style="clear: both">
+        <span id="countriesSelect" class="row">
           {{> countriesSelect}}
         </span>
-        <span id="statesSelect" class="col-sm-3">
+        <span id="statesSelect" class="row">
           {{> statesSelect}}
         </span>
-        <span id="citiesSelect" class="col-sm-3">
+        <span id="citiesSelect" class="row">
           {{> citiesSelect}}
         </span>
-        <span id="trimsSelect" class="col-sm-3">
+        <span id="trimsSelect" class="row">
           {{> trimsSelect}}
         </span>
       </div>
     </div>
-    {{> updateButtons}}
+<!--     {{> updateButtons}} -->
   </form>
-  {{/with}}
+
 </template>
 
 <template name="countriesSelect">
-  <select id="countries" class="selectpicker changeitem">
+  <select id="countries" class="selectpicker changeitem show-tick">
     {{> countriesSelectOptions}}
   </select>
 </template>
@@ -84,7 +68,7 @@
 </template>
 
 <template name="citiesSelect">
-  <select id="cities" class="selectpicker changeitem">
+  <select id="cities" class="selectpicker changeitem" title="Choose city">
     {{> citiesSelectOptions}}
   </select>
 </template>
@@ -96,7 +80,7 @@
 </template>
 
 <template name="trimsSelect">
-  <select id="trims" class="selectpicker changeitem">
+  <select id="trims" class="selectpicker changeitem" title="Choose trim">
     {{> trimsSelectOptions}}
   </select>
 </template>
