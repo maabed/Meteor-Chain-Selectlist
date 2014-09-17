@@ -49,6 +49,9 @@
         <span id="citiesSelect" class="col-sm-3">
           {{> citiesSelect}}
         </span>
+        <span id="trimsSelect" class="col-sm-3">
+          {{> trimsSelect}}
+        </span>
       </div>
     </div>
     {{> updateButtons}}
@@ -87,6 +90,18 @@
 </template>
 
 <template name="citiesSelectOptions">
+  {{#each options}}
+    <option>{{this}}</option>
+  {{/each}}
+</template>
+
+<template name="trimsSelect">
+  <select id="trims" class="selectpicker changeitem">
+    {{> trimsSelectOptions}}
+  </select>
+</template>
+
+<template name="trimsSelectOptions">
   {{#each options}}
     <option>{{this}}</option>
   {{/each}}

@@ -12,8 +12,9 @@ Template.identityForm.events
     country = $('#countries').val()
     state = $('#states').val()
     city = $('#cities').val()
+    trim = $('#trim').val()
     Meteor.call('setPersonIdentity',
-       firstName,lastName,country,state,city)
+       firstName,lastName,country,state,city,trim)
     Session.set 'formitemChanged', false
 
   'click .cancel': (e) ->
@@ -34,6 +35,9 @@ Template.identityForm.events
 
   'change #states': (e) ->
     Template.citiesSelect.change()
+
+  'change #cities': (e) ->
+    Template.trimsSelect.change()
 
 Deps.autorun ->
   Meteor.subscribe("locations", ->
@@ -132,3 +136,45 @@ Template.citiesSelectOptions.rendered = ->
   $('#cities.selectpicker').selectpicker('val',
        Template.identityForm.person().city)
   Session.set 'formitemChanged', changed
+
+
+
+
+
+Template.trimsSelect.change = ->
+country = $('#countries').val()
+state = $('#states').val()
+city = $('#cities').val()
+if country && state && city
+  Meteor.subscribe("locations",country,state,city
+        -> Template.trimsSelect.updateUI())
+
+Template.trimsSelect.updateUI = ->
+  ui = $('#trimaSelect select')
+  options = $('option',ui)
+  if options.length > 0
+    options.remove()
+  UI.insert(UI.render(
+       Template.trimsSelectOptions),ui[0])
+
+Template.trimsSelectOptions.helpers
+  options: ->
+    country = $('#countries').val()
+    state = $('#states').val()
+    city = $('#cities').val()
+    trims = Meteor.Lookups.
+         findOne { name:
+             "location_#{country}_#{state}_#{city}_trims" }
+    if country && state && city && trims
+      trims.values.split '|'
+    else
+      [ ]
+
+Template.trimsSelectOptions.rendered = ->
+  changed = Session.get 'formitemChanged'
+  $('#trims.selectpicker').selectpicker()
+  $('#trims.selectpicker').selectpicker("refresh")
+  $('#trims.selectpicker').selectpicker('val',
+       Template.identityForm.person().trim)
+  Session.set 'formitemChanged', changed
+
