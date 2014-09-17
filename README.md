@@ -1,6 +1,6 @@
 Meteor-Chain-Selectlist
 =======================
-
+Meteor 0.9.2
 Using bootstrap-select package and collection to populate data into cascading select lists
 
 This's an example of using chained select list in meteor app, the example include Country/State/City selector 
@@ -10,5 +10,6 @@ using [bootstap-select packege](https://github.com/maabed/meteor-bootstrap-selec
 
 
 Most of the code presented by @eymiha
+Blog post: http://www.neo.com/2014/05/23/reactive-forms-in-meteor-js
 
 
