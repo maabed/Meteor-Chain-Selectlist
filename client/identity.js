@@ -1,27 +1,25 @@
 Template.identityForm.events({
     'change #countries': function(e) {
-      return Template.statesSelect.change();
+       Template.statesSelect.change();
     },
     'change #states': function(e) {
-      return Template.citiesSelect.change();
+       Template.citiesSelect.change();
     },
     'change #cities': function(e) {
-      return Template.trimsSelect.change();
+       Template.trimsSelect.change();
     }
 });
 
 Deps.autorun(function() {
-  return Meteor.subscribe("locations", function() {
+  Meteor.subscribe("locations", function() {
     return Template.countriesSelect.updateUI();
   });
 });
 
 Template.countriesSelect.updateUI = function() {
   var ui = $('#countriesSelect select');
-
   if (ui.length > 0) {
     var options = $('option', ui);
-    console.log(options.length);
     if (options.length > 0) {
           options.remove();
     }
@@ -32,26 +30,25 @@ Template.countriesSelect.updateUI = function() {
 Template.countriesSelectOptions.helpers({
   options: function() {
     var countries = Meteor.Lookups.findOne({
-      name: 'location_countries'
+      name: "location_countries"
     });
     if (countries) {
       return countries.values.split('|');
-    } else {
-      return [];
-    }
+      }
   }
 });
 
 Template.countriesSelectOptions.rendered = function() {
     $('#countries.selectpicker').selectpicker();
     $('#countries.selectpicker').selectpicker("refresh");
-  return Template.statesSelect.change();
+    $('#countries.selectpicker').selectpicker('val');
+   return Template.statesSelect.change();
 };
 
 Template.statesSelect.change = function() {
   var country;
   if (country = $('#countries').val()) {
-    return Meteor.subscribe("locations", country, function() {
+     Meteor.subscribe("locations", country, function() {
       return Template.statesSelect.updateUI();
     });
   }
@@ -74,7 +71,7 @@ Template.statesSelectOptions.helpers({
       });
       if (country && states) {
         return states.values.split('|');
-      } else {
+        } else {
         return [];
       }
   }
@@ -84,14 +81,14 @@ Template.statesSelectOptions.rendered = function() {
   $('#states.selectpicker').selectpicker();
   $('#states.selectpicker').selectpicker("refresh");
   $('#states.selectpicker').selectpicker('val');
-  return Template.citiesSelect.change();
+  Template.citiesSelect.change();
 };
 
 Template.citiesSelect.change = function() {
   var country = $('#countries').val();
   var state = $('#states').val();
   if (country && state) {
-    return Meteor.subscribe("locations", country, state, function() {
+    Meteor.subscribe("locations", country, state, function() {
       return Template.citiesSelect.updateUI();
     });
   }
@@ -124,7 +121,7 @@ Template.citiesSelectOptions.helpers({
 Template.citiesSelectOptions.rendered = function() {
   $('#cities.selectpicker').selectpicker();
   $('#cities.selectpicker').selectpicker("refresh");
-  return $('#cities.selectpicker').selectpicker('val');
+  $('#cities.selectpicker').selectpicker('val');
 };
 
 Template.trimsSelect.change = function() {
@@ -145,7 +142,7 @@ Template.trimsSelect.updateUI = function() {
   if (options.length > 0) {
     options.remove();
   }
-  return UI.insert(UI.render(Template.trimsSelectOptions), ui[0]);
+  UI.insert(UI.render(Template.trimsSelectOptions), ui[0]);
 };
 
 Template.trimsSelectOptions.helpers({
@@ -168,6 +165,6 @@ Template.trimsSelectOptions.helpers({
 Template.trimsSelectOptions.rendered = function() {
   $('#trims.selectpicker').selectpicker();
   $('#trims.selectpicker').selectpicker("refresh");
-  return $('#trims.selectpicker').selectpicker('val');
+  $('#trims.selectpicker').selectpicker('val');
 };
 
