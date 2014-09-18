@@ -23,7 +23,8 @@ Template.countriesSelect.updateUI = function() {
     if (options.length > 0) {
           options.remove();
     }
-    return UI.insert(UI.render(Template.countriesSelectOptions), ui[0]);
+      console.log(ui[0], options);
+    return Blaze.render(Template.countriesSelectOptions, ui[0]);
   }
 };
 
@@ -60,7 +61,7 @@ Template.statesSelect.updateUI = function() {
   if (options.length > 0) {
     options.remove();
   }
-  return UI.insert(UI.render(Template.statesSelectOptions), ui[0]);
+  return Blaze.render(Template.statesSelectOptions, ui[0]);
 };
 
 Template.statesSelectOptions.helpers({
@@ -100,7 +101,7 @@ Template.citiesSelect.updateUI = function() {
   if (options.length > 0) {
     options.remove();
   }
-  return UI.insert(UI.render(Template.citiesSelectOptions), ui[0]);
+  return Blaze.render(Template.citiesSelectOptions, ui[0]);
 };
 
 Template.citiesSelectOptions.helpers({
@@ -142,7 +143,7 @@ Template.trimsSelect.updateUI = function() {
   if (options.length > 0) {
     options.remove();
   }
-  UI.insert(UI.render(Template.trimsSelectOptions), ui[0]);
+  Blaze.render(Template.trimsSelectOptions, ui[0]);
 };
 
 Template.trimsSelectOptions.helpers({
