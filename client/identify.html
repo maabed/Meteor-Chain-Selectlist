@@ -14,25 +14,24 @@
 
   </div>
 </nav>
-  <div id='identityForm' class='container'>
-    {{> identityForm}}
+  <div id='searchForm' class='container'>
+    {{> searchForm}}
   </div>
 </template>
 
-<template name='identityForm'>
+<template name='searchForm'>
 
   <form class='form-horizontal' role='identity-form'>
-    <label for="location" class="col-sm-3 text-left">Location</label>
     <div class="form-group">
       <div class="container" style="clear: both">
-        <span id="countriesSelect" class="row">
-          {{> countriesSelect}}
+        <span id="makersSelect" class="row">
+          {{> makersSelect}}
         </span>
-        <span id="statesSelect" class="row">
-          {{> statesSelect}}
+        <span id="modelsSelect" class="row">
+          {{> modelsSelect}}
         </span>
-        <span id="citiesSelect" class="row">
-          {{> citiesSelect}}
+        <span id="yearsSelect" class="row">
+          {{> yearsSelect}}
         </span>
         <span id="trimsSelect" class="row">
           {{> trimsSelect}}
@@ -44,37 +43,37 @@
 
 </template>
 
-<template name="countriesSelect">
-  <select id="countries" class="selectpicker">
-    {{> countriesSelectOptions}}
+<template name="makersSelect">
+  <select id="makers" class="selectpicker">
+    {{> makersSelectOptions}}
   </select>
 </template>
 
-<template name="countriesSelectOptions">
+<template name="makersSelectOptions">
   {{#each options}}
     <option>{{this}}</option>
   {{/each}}
 </template>
 
-<template name="statesSelect">
-  <select id="states" class="selectpicker changeitem">
-    {{> statesSelectOptions}}
+<template name="modelsSelect">
+  <select id="models" class="selectpicker changeitem">
+    {{> modelsSelectOptions}}
   </select>
 </template>
 
-<template name="statesSelectOptions">
+<template name="modelsSelectOptions">
   {{#each options}}
     <option>{{this}}</option>
   {{/each}}
 </template>
 
-<template name="citiesSelect">
-  <select id="cities" class="selectpicker changeitem" title="Choose city">
-    {{> citiesSelectOptions}}
+<template name="yearsSelect">
+  <select id="years" class="selectpicker changeitem" title="Choose city">
+    {{> yearsSelectOptions}}
   </select>
 </template>
 
-<template name="citiesSelectOptions">
+<template name="yearsSelectOptions">
   {{#each options}}
     <option>{{this}}</option>
   {{/each}}

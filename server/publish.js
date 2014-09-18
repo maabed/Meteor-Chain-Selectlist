@@ -1,11 +1,11 @@
   
-Meteor.publish('locations', function(country, state, city) {
+Meteor.publish('cars', function(make, model, year) {
   return Meteor.Lookups.find({
     name: {
-      $in: ["location_countries", 
-      		"location_" + country + "_states", 
-      		"location_" + country + "_" + state + "_cities", 
-      		"location_" + country + "_" + state + "_" + city + "_trims"]
+      $in: ["car_makers", 
+      		make + "_models", 
+      		make + "_" + model + "_years", 
+      		make + "_" + model + "_" + year + "_trims"]
     }
   });
 });

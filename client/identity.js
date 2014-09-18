@@ -1,137 +1,142 @@
-Template.identityForm.events({
-    'change #countries': function(e) {
-       Template.statesSelect.change();
+Template.searchForm.events({
+    'change #makers': function(e) {
+       Template.modelsSelect.change();
     },
-    'change #states': function(e) {
-       Template.citiesSelect.change();
+    'change #models': function(e) {
+       Template.yearsSelect.change();
     },
-    'change #cities': function(e) {
+    'change #years': function(e) {
        Template.trimsSelect.change();
     }
 });
 
 Deps.autorun(function() {
-  Meteor.subscribe("locations", function() {
-    return Template.countriesSelect.updateUI();
+  Meteor.subscribe("cars", function() {
+    return Template.makersSelect.updateUI();
   });
 });
 
-Template.countriesSelect.updateUI = function() {
-  var ui = $('#countriesSelect select');
+Template.makersSelect.updateUI = function() {
+  var ui = $('#makersSelect select');
   if (ui.length > 0) {
     var options = $('option', ui);
     if (options.length > 0) {
           options.remove();
     }
-      console.log(ui[0], options);
-    return Blaze.render(Template.countriesSelectOptions, ui[0]);
+    return Blaze.render(Template.makersSelectOptions, ui[0]);
   }
 };
 
-Template.countriesSelectOptions.helpers({
+Template.makersSelectOptions.helpers({
   options: function() {
-    var countries = Meteor.Lookups.findOne({
-      name: "location_countries"
+    var makers = Meteor.Lookups.findOne({
+      name: "car_makers"
     });
-    if (countries) {
-      return countries.values.split('|');
+    if (makers) {
+      return makers.values.split('|');
+      } else {
+        return [];
       }
   }
 });
 
-Template.countriesSelectOptions.rendered = function() {
-    $('#countries.selectpicker').selectpicker();
-    $('#countries.selectpicker').selectpicker("refresh");
-    $('#countries.selectpicker').selectpicker('val');
-   return Template.statesSelect.change();
+Template.makersSelectOptions.rendered = function() {
+    $('#makers.selectpicker').selectpicker();
+    $('#makers.selectpicker').selectpicker("refresh");
+    $('#makers.selectpicker').selectpicker('val');
+   return Template.modelsSelect.change();
 };
 
-Template.statesSelect.change = function() {
-  var country;
-  if (country = $('#countries').val()) {
-     Meteor.subscribe("locations", country, function() {
-      return Template.statesSelect.updateUI();
+Template.modelsSelect.change = function() {
+  var make;
+  if (make = $('#makers').val()) {
+     Meteor.subscribe("cars", make, function() {
+      return Template.modelsSelect.updateUI();
     });
   }
 };
 
-Template.statesSelect.updateUI = function() {
-  var ui = $('#statesSelect select');
+Template.modelsSelect.updateUI = function() {
+  var ui = $('#modelsSelect select');
   var options = $('option', ui);
   if (options.length > 0) {
     options.remove();
   }
-  return Blaze.render(Template.statesSelectOptions, ui[0]);
+  return Blaze.render(Template.modelsSelectOptions, ui[0]);
 };
 
-Template.statesSelectOptions.helpers({
+
+//Check why is the makeer repeated twice
+Template.modelsSelectOptions.helpers({
     options: function() {
-      var country = $('#countries').val();
-      var states = Meteor.Lookups.findOne({
-        name: "location_" + country + "_states"
+      var make = $('#makers').val();
+      var models = Meteor.Lookups.findOne({
+        name: make + "_models"
       });
-      if (country && states) {
-        return states.values.split('|');
+      console.log(make);
+      console.log(models);
+      if (make && models) {
+        return models.values.split('|');
         } else {
         return [];
       }
   }
 });
 
-Template.statesSelectOptions.rendered = function() {
-  $('#states.selectpicker').selectpicker();
-  $('#states.selectpicker').selectpicker("refresh");
-  $('#states.selectpicker').selectpicker('val');
-  Template.citiesSelect.change();
+Template.modelsSelectOptions.rendered = function() {
+  $('#models.selectpicker').selectpicker();
+  $('#models.selectpicker').selectpicker("refresh");
+  $('#models.selectpicker').selectpicker('val');
+  Template.yearsSelect.change();
 };
 
-Template.citiesSelect.change = function() {
-  var country = $('#countries').val();
-  var state = $('#states').val();
-  if (country && state) {
-    Meteor.subscribe("locations", country, state, function() {
-      return Template.citiesSelect.updateUI();
+Template.yearsSelect.change = function() {
+  var make = $('#makers').val();
+  var model = $('#models').val();
+  if (make && model) {
+    Meteor.subscribe("cars", make, model, function() {
+      return Template.yearsSelect.updateUI();
     });
   }
 };
 
-Template.citiesSelect.updateUI = function() {
-  var ui = $('#citiesSelect select');
+Template.yearsSelect.updateUI = function() {
+  var ui = $('#yearsSelect select');
   var options = $('option', ui);
   if (options.length > 0) {
     options.remove();
   }
-  return Blaze.render(Template.citiesSelectOptions, ui[0]);
+  return Blaze.render(Template.yearsSelectOptions, ui[0]);
 };
 
-Template.citiesSelectOptions.helpers({
+Template.yearsSelectOptions.helpers({
   options: function() {
-    var country = $('#countries').val();
-    var state = $('#states').val();
-    var cities = Meteor.Lookups.findOne({
-      name: "location_" + country + "_" + state + "_cities"
+    var make = $('#makers').val();
+    var model = $('#models').val();
+    var years = Meteor.Lookups.findOne({
+      name: make + "_" + model + "_years"
     });
-    if (country && state && cities) {
-      return cities.values.split('|');
+    if (make && model && years) {
+      return years.values.split('|');
     } else {
       return [];
     }
   }
 });
 
-Template.citiesSelectOptions.rendered = function() {
-  $('#cities.selectpicker').selectpicker();
-  $('#cities.selectpicker').selectpicker("refresh");
-  $('#cities.selectpicker').selectpicker('val');
+Template.yearsSelectOptions.rendered = function() {
+  $('#years.selectpicker').selectpicker();
+  $('#years.selectpicker').selectpicker("refresh");
+  $('#years.selectpicker').selectpicker('val');
 };
 
 Template.trimsSelect.change = function() {
-  var country = $('#countries').val();
-  var state = $('#states').val();
-  var city = $('#cities').val();
+  var make = $('#makers').val();
+  var model = $('#models').val();
+  var year = $('#years').val();
 
-  if (country && state && city) {
-    Meteor.subscribe("locations", country, state, city, function() {
+  if (make && model && year) {
+    Meteor.subscribe("cars", make, model, year, function() {
       return Template.trimsSelect.updateUI();
     });
   }
@@ -148,14 +153,14 @@ Template.trimsSelect.updateUI = function() {
 
 Template.trimsSelectOptions.helpers({
   options: function() {
-    var country = $('#countries').val();
-    var state = $('#states').val();
-    var city = $('#cities').val();
+    var make = $('#makers').val();
+    var model = $('#models').val();
+    var year = $('#years').val();
     var trims = Meteor.Lookups.findOne({
-      name: "location_" + country + "_" + state + "_" + city + "_trims"
+      name: make + "_" + model + "_" + year + "_trims"
     });
 
-    if (country && state && city && trims) {
+    if (make && model && year && trims) {
         return trims.values.split('|');
       } else {
           return [];

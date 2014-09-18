@@ -7,36 +7,36 @@ Meteor.startup(function() {
 assertLookups = function() {
   if (Meteor.Lookups.find().count() === 0) {
     Meteor.Lookups.insert({
-      name: 'location_countries',
-      values: 'United States'
+      name: 'car_makers',
+      values: 'Audi'
     });
     Meteor.Lookups.insert({
-      name: 'location_United States_states',
-      values: 'Alabama|Alaska'
+      name: 'Audi_models',
+      values: 'A4|A6|A8'
     });
     Meteor.Lookups.insert({
-      name: 'location_United States_Alabama_cities',
-      values: 'Valley|Wetumpka'
+      name: 'Audi_A4_years',
+      values: '2009|2010|2011'
     });
     Meteor.Lookups.insert({
-      name: 'location_United States_Alaska_cities',
-      values: 'Anchorage|Bethel'
+      name: 'Audi_A6_years',
+      values: '2010|2011|2012'
     });
     Meteor.Lookups.insert({
-      name: 'location_United States_Alabama_Valley_trims',
-      values: 'Boaz|College'
+      name: 'Audi_A4_2009_trims',
+      values: 'Base|Sport'
     });
     Meteor.Lookups.insert({
-      name: 'location_United States_Alabama_Wetumpka_trims',
-      values: 'Fairbanks|Juneau'
+      name: 'Audi_A4_2010_trims',
+      values: 'Base|Sport'
     });
     Meteor.Lookups.insert({
-      name: 'location_United States_Alaska_Anchorage_trims',
-      values: 'Boaz|College'
+      name: 'Audi_A6_2010_trims',
+      values: '2.0T Premium Plus|3.0T Premium Plus'
     });
     Meteor.Lookups.insert({
-      name: 'location_United States_Alaska_Bethel_trims',
-      values: 'Fairbanks|Juneau'
+      name: 'Audi_A6_2011_trims',
+      values: '2.0T Premium Plus|3.0T Premium Plus|TDI Prestige'
     });
 
   }
